@@ -1,34 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Header from './Header/Header'
+//import LogoList from './SideBar/LogoList'
+import VehicleOverviewTitle from './HeroSection/VehicleOverviewTitle'
+import VehicleOverviewCards from './HeroSection/VehicleOverviewCards'
+// You’ll later add: Sidebar, Hero, MainContent, Footer
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App-Layout">
+      {/* Header at the top */}
+      <Header />
+
+      {/* Page body */}
+      <div className="App-Body">
+        <aside className="Sidebar">
+        
+        </aside>
+
+        <section className="Main-Content">
+          <div className="Hero">
+            <VehicleOverviewTitle />
+            <VehicleOverviewCards />
+          </div>
+          {/* <div className="Content">
+            Main Content Area
+          </div> */}
+        </section>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+      {/* Footer at the bottom */}
+      {/* <footer className="Footer">
+        Footer
+      </footer> */}
+    </div>
   )
 }
 

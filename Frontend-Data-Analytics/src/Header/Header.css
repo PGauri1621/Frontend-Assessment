@@ -1,0 +1,18 @@
+.Header-Flex-Box {
+  display: flex;
+  justify-content: space-between; /* spread items */
+  align-items: center;
+  width: 100%;          /* full width */
+  padding: 1rem;
+  background-color: #94afca;
+  color: white;
+  box-sizing: border-box;
+}
+
+/* Each section gets equal width */
+.Logo-Section,
+.Active-User-Section,
+.SearchBox-Section {
+  flex: 1;              /* equal width columns */
+  text-align: center;   /* center text/components horizontally */
+}

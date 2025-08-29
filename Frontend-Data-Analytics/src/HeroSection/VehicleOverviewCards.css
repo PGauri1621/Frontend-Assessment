@@ -1,0 +1,39 @@
+.Vehicle-Cards-Container {
+  display: flex;
+  justify-content: space-between; /* equal spacing */
+  align-items: stretch;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.Vehicle-Card {
+  flex: 1; /* all cards same width */
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Vehicle-Card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.Vehicle-Card-Content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Vehicle-Card-Icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+}
+
+.Vehicle-Card-Info {
+  display: flex;
+  flex-direction: column;
+}
