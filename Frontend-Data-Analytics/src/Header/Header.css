@@ -1,18 +1,152 @@
-.Header-Flex-Box {
-  display: flex;
-  justify-content: space-between; /* spread items */
-  align-items: center;
-  width: 100%;          /* full width */
-  padding: 1rem;
-  background-color: #94afca;
+.Header-AppBar {
+  background: linear-gradient(90deg, #1976d2, #512da8); /* Blue → Purple gradient */
   color: white;
-  box-sizing: border-box;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-/* Each section gets equal width */
-.Logo-Section,
-.Active-User-Section,
-.SearchBox-Section {
-  flex: 1;              /* equal width columns */
-  text-align: center;   /* center text/components horizontally */
+.Header-Toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Left Section */
+.Header-Left {
+  display: flex;
+  align-items: center;
+}
+
+.Header-LogoIcon {
+  font-size: 2.4rem;
+  margin-right: 0.6rem;
+}
+
+/* Title block (title + tagline) */
+.Header-TitleBlock {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+/* Fancy dashboard title */
+.Header-Title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+  transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.Header-Title:hover {
+  color: #ffeb3b; /* highlight yellow on hover */
+  text-shadow: 0px 0px 10px rgba(255, 235, 59, 0.8);
+}
+
+/* Sub tagline */
+.Header-Tagline {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #e0e0e0;
+  letter-spacing: 0.5px;
+}
+
+/* Center metric */
+.Header-Center {
+  flex: 1;
+  text-align: center;
+}
+
+.Header-Metric {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffeb3b; /* make it stand out */
+}
+
+/* Right Section */
+.Header-Right {
+  display: flex;
+  align-items: center;
+}
+
+.Header-ActionIcon {
+  font-size: 1.8rem;
+}
+.Header-AppBar {
+  background: linear-gradient(90deg, #1976d2, #512da8); /* Blue → Purple gradient */
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.Header-Toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Left Section */
+.Header-Left {
+  display: flex;
+  align-items: center;
+}
+
+.Header-LogoIcon {
+  font-size: 2.4rem;
+  margin-right: 0.6rem;
+}
+
+/* Title block (title + tagline) */
+.Header-TitleBlock {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+/* Fancy dashboard title */
+.Header-Title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+  transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.Header-Title:hover {
+  color: #ffeb3b; /* highlight yellow on hover */
+  text-shadow: 0px 0px 10px rgba(255, 235, 59, 0.8);
+}
+
+/* Sub tagline */
+.Header-Tagline {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #e0e0e0;
+  letter-spacing: 0.5px;
+}
+
+/* Center metric */
+.Header-Center {
+  flex: 1;
+  text-align: center;
+}
+
+.Header-Metric {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffeb3b; /* make it stand out */
+}
+
+/* Right Section */
+.Header-Right {
+  display: flex;
+  align-items: center;
+}
+
+.Header-ActionIcon {
+  font-size: 1.8rem;
 }

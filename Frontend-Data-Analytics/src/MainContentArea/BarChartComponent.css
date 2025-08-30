@@ -1,0 +1,17 @@
+.Website-BarChart-Component {
+  width: 100%;
+  height: 100%;
+  /* remove extra margin */
+  padding: 0;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+
+.Website-BarChart-Component h3 {
+  text-align: left;
+  margin-bottom: 1rem;
+  color: #333;
+  font-weight: bold;
+}

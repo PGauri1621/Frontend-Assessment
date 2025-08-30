@@ -1,13 +1,8 @@
 .Vehicle-Cards-Container {
-  display: flex;
-  justify-content: space-between; /* equal spacing */
-  align-items: stretch;
-  gap: 1rem;
   margin: 1rem 0;
 }
 
 .Vehicle-Card {
-  flex: 1; /* all cards same width */
   border-radius: 12px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

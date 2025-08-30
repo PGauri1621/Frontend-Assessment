@@ -1,0 +1,78 @@
+/* LogoList container */
+.logo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%; /* fill parent sidebar */
+}
+
+.logo-list.collapsed {
+  width: 50px; /* collapsed width */
+}
+
+/* List items */
+.logo-list-item {
+  display: flex;
+  align-items: center;
+  color: #DDF4E7; /* light text for sidebar */
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.logo-list-item:hover {
+  background-color: #67C090; /* accent hover color */
+}
+
+/* List item icons */
+.logo-list-icon {
+  min-width: 35px;
+  display: flex;
+  justify-content: center;
+  color: #DDF4E7; /* light icon for sidebar */
+}
+
+/* Divider */
+.logo-list-divider {
+  background-color: #67C090; /* accent divider */
+  margin: 8px 0;
+}
+/* LogoList container */
+.logo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%; /* fill parent sidebar */
+}
+
+.logo-list.collapsed {
+  width: 50px; /* collapsed width */
+}
+
+/* List items */
+.logo-list-item {
+  display: flex;
+  align-items: center;
+  color: #DDF4E7; /* light text for sidebar */
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.logo-list-item:hover {
+  background-color: #67C090; /* accent hover color */
+}
+
+/* List item icons */
+.logo-list-icon {
+  min-width: 35px;
+  display: flex;
+  justify-content: center;
+  color: #DDF4E7; /* light icon for sidebar */
+}
+
+/* Divider */
+.logo-list-divider {
+  background-color: #67C090; /* accent divider */
+  margin: 8px 0;
+}
