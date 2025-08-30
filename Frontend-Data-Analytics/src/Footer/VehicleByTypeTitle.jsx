@@ -31,55 +31,124 @@ const VehicleByTypeTitle = () => {
 };
 
 export default VehicleByTypeTitle;*/
-import React from 'react';
-import { Typography, Tooltip } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import Papa from "papaparse";
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
+import { Typography, Tooltip, Chip, Stack } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import './VehicleByTypeTitle.css';
 
-// Sample vehicle data
-const vehicleList = [
-  { make: 'Tesla', type: 'car', color: '#67C090', status: 'Active' },
-  { make: 'BMW', type: 'truck', color: '#124170', status: 'Idle' },
-  { make: 'Nissan', type: 'bike', color: '#26667F', status: 'Moving' },
-];
+const carMakes = ["TESLA", "BMW", "NISSAN", "PORSCHE", "AUDI", "FORD"];
 
-// Map vehicle type to MUI icon
-const iconMap = {
-  car: DirectionsCarIcon,
-  truck: LocalShippingIcon,
-  bike: TwoWheelerIcon,
-};
+const urbanCities = [
+  "Seattle","Spokane","Tacoma","Vancouver","Bellevue","Kent","Everett",
+  "Renton","Spokane Valley","Federal Way","Yakima","Kirkland","Bellingham",
+  "Kennewick","Auburn","Pasco","Redmond","Sammamish","Shoreline","Olympia",
+  "Lacey","Lakewood","Burien"
+];
+const urbanCitiesNormalized = urbanCities.map(c => c.toLowerCase());
 
 const VehicleByTypeTitle = () => {
+  const [vehicleData, setVehicleData] = useState([]);
+
+  useEffect(() => {
+    fetch("/data/Electric_Vehicle_Population_Data.csv")
+      .then(res => res.text())
+      .then(csvText => {
+        const parsed = Papa.parse(csvText, { header: true });
+        const data = parsed.data;
+
+        // Count urban and rural for each make
+        const makeCounts = {};
+        carMakes.forEach(make => makeCounts[make] = { urban: 0, rural: 0 });
+
+        data.forEach(row => {
+          const make = row["Make"]?.trim();
+          const city = row["City"]?.trim()?.toLowerCase();
+          if (make && carMakes.includes(make)) {
+            if (urbanCitiesNormalized.includes(city)) makeCounts[make].urban++;
+            else makeCounts[make].rural++;
+          }
+        });
+
+        // Prepare array for lanes
+        const vehicles = Object.keys(makeCounts).map(make => {
+          const { urban, rural } = makeCounts[make];
+          return {
+            make,
+            urbanCount: urban,
+            ruralCount: rural,
+            color: getColorForMake(make)
+          };
+        });
+
+        setVehicleData(vehicles);
+      });
+  }, []);
+
+  const getColorForMake = (make) => {
+    const colorMap = {
+      TESLA: "#E82127",
+      BMW: "#124170",
+      NISSAN: "#F1A208",
+      PORSCHE: "#67C090",
+      AUDI: "#7c3aed",
+      FORD: "#0072C6"  // new Ford color
+    };
+    return colorMap[make] || "#888";
+  };
+
   return (
     <div className="vehicle-card">
+         <Typography  variant="h5"
+        align="center"
+        sx={{ fontWeight: 700, color: "#124170", mb: 2 }}>
+        Top EV's drove in most Urban and Rural areas of USA
+      </Typography>
       <div className="vehicle-card-header">
         <Typography variant="h6" className="vehicle-card-title">
-          Vehicles by Type
+          Vehicles by type and location
         </Typography>
-        <Tooltip title="Shows current vehicle status and lane position">
+        <Tooltip title="Shows number of cars in Urban vs Rural areas">
           <InfoIcon className="info-icon" />
         </Tooltip>
       </div>
 
       <div className="road-container">
-        {vehicleList.map((v, idx) => {
-          const Icon = iconMap[v.type];
-          return (
+        {vehicleData.length === 0 ? (
+          <Typography>Loading data...</Typography>
+        ) : (
+          vehicleData.map((v, idx) => (
             <div key={idx} className="vehicle-lane">
-              <div className="vehicle-icon">
-                <Icon style={{ color: v.color, fontSize: 36 }} />
-              </div>
-              <div className="road-line">
-                <div className={`vehicle-status ${v.status.toLowerCase()}`}></div>
-              </div>
-              <Typography className="vehicle-label">{v.make}</Typography>
+              {/* Car icon */}
+              <DirectionsCarIcon style={{ color: v.color, fontSize: 36 }} />
+
+              {/* Road */}
+              <div className="road-line"></div>
+
+              {/* Counts */}
+              <Stack direction="row" spacing={0.5} className="vehicle-label-container">
+                <Chip
+                  label={v.make}
+                  size="small"
+                  sx={{ fontWeight: 500, bgcolor: v.color, color: "#fff" }}
+                />
+                <Chip
+                  label={`Urban: ${v.urbanCount}`}
+                  size="small"
+                  variant="outlined"
+                  sx={{ borderColor: "#67C090", color: "#67C090", fontWeight: 500 }}
+                />
+                <Chip
+                  label={`Rural: ${v.ruralCount}`}
+                  size="small"
+                  variant="outlined"
+                  sx={{ borderColor: "#124170", color: "#124170", fontWeight: 500 }}
+                />
+              </Stack>
             </div>
-          );
-        })}
+          ))
+        )}
       </div>
     </div>
   );

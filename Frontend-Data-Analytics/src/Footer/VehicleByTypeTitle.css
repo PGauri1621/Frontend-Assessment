@@ -18,14 +18,12 @@
 }*/
 .vehicle-card {
   width: 100%;
-  /* Remove background to inherit Chart-Wrapper color */
   background-color: transparent;
   border-radius: 12px;
-  padding: 1rem 0; /* smaller padding since wrapper already has padding */
+  padding: 1rem 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  box-shadow: none; /* remove shadow to blend with app */
 }
 
 .vehicle-card-header {
@@ -35,7 +33,7 @@
 }
 
 .vehicle-card-title {
-  color: #124170; /* dark text for contrast */
+  color: #124170;
   font-weight: 700;
 }
 
@@ -53,14 +51,7 @@
 .vehicle-lane {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.5rem 0;
-}
-
-.vehicle-icon {
-  flex: 0 0 50px;
-  display: flex;
-  justify-content: center;
+  gap: 0.5rem;
 }
 
 .road-line {
@@ -72,7 +63,6 @@
   overflow: hidden;
 }
 
-/* Dashed road markings */
 .road-line::before {
   content: '';
   position: absolute;
@@ -91,31 +81,10 @@
   border-radius: 2px;
 }
 
-.vehicle-status {
-  position: absolute;
-  top: -4px;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-}
-
-.vehicle-status.active {
-  background-color: #67C090;
-}
-
-.vehicle-status.idle {
-  background-color: #124170;
-}
-
-.vehicle-status.moving {
-  background-color: #26667F;
-}
-
-.vehicle-label {
-  flex: 0 0 80px;
-  font-weight: 500;
-  color: #124170;
+.vehicle-label-container {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
 }
 
 
