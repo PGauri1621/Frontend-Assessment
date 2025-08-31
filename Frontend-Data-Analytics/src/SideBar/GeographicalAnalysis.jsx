@@ -92,7 +92,7 @@ const GeographicalAnalysis = () => {
   return (
     <div className="geographic-analysis-container">
       {/* Title */}
-      <div className="geo-title">Geographic Distribution of Vehiclesin top 5 cities of WA</div>
+      <div className="geo-title">Geographic Distribution of Vehicles in top 5 cities of WA</div>
 
       {/* Dropdown */}
       <div className="city-selector">

@@ -3,6 +3,7 @@ import Header from "./Header/Header";
 import LogoList from "./SideBar/LogoList";
 import VehicleAnalysis from "./SideBar/VehicleAnalysis";
 import GeographicalAnalysis from "./SideBar/GeographicalAnalysis";
+import MarketTrend from "./SideBar/MarketTrend.jsx";
 import Home from "./Home.jsx";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import React from "react";
@@ -25,7 +26,7 @@ const App = () => {
               <Route path="/home" element={<Home />} />
               <Route path="/vehicle-analysis" element={<VehicleAnalysis />} />
               <Route path="/geographic-analysis" element={<GeographicalAnalysis />} />
-              <Route path="/trends" element={<h2>Market Trends</h2>} />
+              <Route path="/trends" element={<MarketTrend />} />
               <Route path="/" element={<Navigate to="/home" replace />} />
             </Routes>
           </main>

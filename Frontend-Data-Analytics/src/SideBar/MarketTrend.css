@@ -1,0 +1,69 @@
+.MarketTrend-Container {
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: #DDF4E7;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.MarketTrend-Title {
+  color: #124170;
+  font-weight: 700;
+}
+
+.MarketTrend-Description {
+  color: #26667F;
+  line-height: 1.5;
+}
+
+.MarketTrend-Filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.MarketTrend-ChartSection {
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.MarketTrend-LineChartSection {
+  background-color: #67C090;
+}
+
+.MarketTrend-RadarChartSection {
+  background-color: #26667F;
+}
+
+.MarketTrend-AreaChartSection {
+  background-color: #124170;
+}
+
+.MarketTrend-ChartTitle {
+  color: #DDF4E7;
+  font-weight: 600;
+}
+
+.MarketTrend-ChartDescription {
+  color: #DDF4E7;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .MarketTrend-Filters {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .MarketTrend-ChartSection {
+    padding: 0.8rem;
+  }
+}
