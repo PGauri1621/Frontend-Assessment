@@ -107,7 +107,7 @@ const VehicleByTypeTitle = () => {
       </Typography>
       <div className="vehicle-card-header">
         <Typography variant="h6" className="vehicle-card-title">
-          Vehicles by type and location
+          Vehicles by type and location(Urban/Rural)
         </Typography>
         <Tooltip title="Shows number of cars in Urban vs Rural areas">
           <InfoIcon className="info-icon" />

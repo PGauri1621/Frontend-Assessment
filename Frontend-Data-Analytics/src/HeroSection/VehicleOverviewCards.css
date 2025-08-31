@@ -32,3 +32,35 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Ensure four cards per row on larger screens */
+@media (min-width: 1200px) {
+  .Vehicle-Cards-Container .MuiGrid-item {
+    flex: 0 0 25%; /* 100% / 4 cards */
+    max-width: 25%;
+  }
+}
+
+/* Three cards per row on medium screens */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .Vehicle-Cards-Container .MuiGrid-item {
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+  }
+}
+
+/* Two cards per row on small screens */
+@media (min-width: 600px) and (max-width: 899px) {
+  .Vehicle-Cards-Container .MuiGrid-item {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+/* Single card per row on very small screens */
+@media (max-width: 599px) {
+  .Vehicle-Cards-Container .MuiGrid-item {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

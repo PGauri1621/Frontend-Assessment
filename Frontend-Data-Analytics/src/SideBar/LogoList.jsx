@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
-import { List, ListItem, ListItemIcon, ListItemText, Divider, Tooltip } from '@mui/material';
-import { Home, Settings, Info } from '@mui/icons-material';
-import './LogoList.css';
+import React, { useState } from "react";
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Tooltip,
+} from "@mui/material";
+import {
+  ElectricCar,
+  Map,
+  TrendingUp,
+  EvStation,
+} from "@mui/icons-material";
+import { Link } from "react-router-dom"; // ⬅️ import router Link
+import "./LogoList.css";
 
 const LogoList = () => {
-  const [open, setOpen] = useState(true); // always open in sidebar
+  const [open, setOpen] = useState(true);
 
+  // Menu items now have a "path"
   const menuItems = [
-    { text: 'Home', icon: <Home /> },
-    { text: 'Settings', icon: <Settings /> },
-    { text: 'About', icon: <Info /> },
-    { text: 'Help', icon: <Info /> },
+    { text: "Vehicle Analysis", icon: <ElectricCar />, path: "/vehicle-analysis" },
+    { text: "Geographic Analysis", icon: <Map />, path: "/geographic-analysis" },
+    { text: "Market Trends", icon: <TrendingUp />, path: "/trends" },
+    { text: "Infrastructure", icon: <EvStation />, path: "/infrastructure" },
   ];
 
   return (
     <div
-      className={`logo-list ${open ? 'open' : 'collapsed'}`}
+      className={`logo-list ${open ? "open" : "collapsed"}`}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
@@ -23,11 +37,16 @@ const LogoList = () => {
         {menuItems.map((item, index) => (
           <Tooltip
             key={index}
-            title={!open ? item.text : ''}
+            title={!open ? item.text : ""}
             placement="right"
             arrow
           >
-            <ListItem button className="logo-list-item">
+            <ListItem
+              button
+              component={Link}   // ⬅️ makes it a router link
+              to={item.path}     // ⬅️ navigates to path
+              className="logo-list-item"
+            >
               <ListItemIcon className="logo-list-icon">{item.icon}</ListItemIcon>
               {open && <ListItemText primary={item.text} />}
             </ListItem>

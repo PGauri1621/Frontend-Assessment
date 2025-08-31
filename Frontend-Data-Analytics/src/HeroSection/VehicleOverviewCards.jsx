@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, Typography, Box, Grid } from "@mui/material";
+import { Card, CardContent, Typography, Grid } from "@mui/material";
+import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 import BatteryChargingFullIcon from "@mui/icons-material/BatteryChargingFull";
-import ElectricCarIcon from "@mui/icons-material/ElectricCar"; 
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar"; 
 import Papa from "papaparse";
 
 import "./VehicleOverviewCards.css";
 
 const VehicleOverviewCards = () => {
   const [cards, setCards] = useState([]);
-
+  const trackedMakes = ["TESLA", "BMW"];
   const iconMap = {
     "Battery Electric Vehicle (BEV)": <ElectricCarIcon fontSize="large" color="primary" />,
     "Plug-in Hybrid Electric Vehicle (PHEV)": <BatteryChargingFullIcon fontSize="large" color="secondary" />,
-    "Clean Alternative Fuel Vehicle (CAFV) Eligibility": <DirectionsCarIcon fontSize="large" color="info" />, // icon for CAFV summary
+    TESLA: <ElectricCarIcon fontSize="large" color="primary" />,
+    BMW: <BatteryChargingFullIcon fontSize="large" color="secondary" />,
   };
 
   useEffect(() => {
     fetch("/data/Electric_Vehicle_Population_Data.csv")
-      .then((res) => res.text())
-      .then((csvText) => {
+      .then(res => res.text())
+      .then(csvText => {
         const parsed = Papa.parse(csvText, { header: true, dynamicTyping: true });
         const data = parsed.data;
 
@@ -29,7 +29,6 @@ const VehicleOverviewCards = () => {
           if (type) acc[type] = (acc[type] || 0) + 1;
           return acc;
         }, {});
-
         const totalEV = Object.values(evCounts).reduce((sum, val) => sum + val, 0);
 
         const evCards = Object.entries(evCounts).map(([type, count]) => ({
@@ -38,28 +37,25 @@ const VehicleOverviewCards = () => {
           icon: iconMap[type] || null,
         }));
 
-        // 2️⃣ Compute CAFV eligibility summary
-        const cafvCounts = data.reduce((acc, row) => {
-          const eligibility = row["Make & Clean Alternative Fuel Vehicle (CAFV) Eligibility"];
-          if (eligibility) acc[eligibility] = (acc[eligibility] || 0) + 1;
-          return acc;
-        }, {});
+        // 2️⃣ Compute Tesla and BMW averages
+        const maxRange = Math.max(...data.map(row => parseFloat(row["Electric Range"]) || 0), 1);
+        const maxMSRP = Math.max(...data.map(row => parseFloat(row["Base MSRP"]) || 0), 1);
 
-        const totalCAFV = Object.values(cafvCounts).reduce((sum, val) => sum + val, 0);
+        const makeStats = trackedMakes.map(make => {
+          const rows = data.filter(r => r["Make"]?.trim().toUpperCase() === make);
+          const totalRange = rows.reduce((sum, r) => sum + (parseFloat(r["Electric Range"]) || 0), 0);
+          const totalMSRP = rows.reduce((sum, r) => sum + (parseFloat(r["Base MSRP"]) || 0), 0);
+          const count = rows.length || 1;
 
-        // Decide how to summarize CAFV: show **most frequent category**
-        const mostFrequentCAFV = Object.entries(cafvCounts).reduce((prev, current) =>
-          current[1] > prev[1] ? current : prev
-        , ["", 0]);
+          return {
+            title: make,
+            value: `Avg Electric Range: ${((totalRange / count) / maxRange * 100).toFixed(1)}% | Avg Base MSRP: ${((totalMSRP / count) / maxMSRP * 100).toFixed(1)}%`,
+            icon: iconMap[make],
+          };
+        });
 
-        const cafvCard = {
-          title: "CAFV Eligibility",
-          value: `${mostFrequentCAFV[0]} (${((mostFrequentCAFV[1] / totalCAFV) * 100).toFixed(2)}%)`,
-          icon: iconMap["Clean Alternative Fuel Vehicle (CAFV) Eligibility"],
-        };
-
-        // 3️⃣ Combine cards: EV cards + CAFV card
-        setCards([...evCards, cafvCard]);
+        // Combine all cards: BEV, PHEV + Tesla/BMW stats
+        setCards([...evCards, ...makeStats]);
       });
   }, []);
 
@@ -67,7 +63,7 @@ const VehicleOverviewCards = () => {
     <div className="Vehicle-Cards-Container">
       <Grid container spacing={3}>
         {cards.map((card, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+          <Grid item xs={12} sm={6} md={4} key={index}>
             <Card className="Vehicle-Card" elevation={3}>
               <CardContent className="Vehicle-Card-Content">
                 <div className="Vehicle-Card-Icon">{card.icon}</div>
