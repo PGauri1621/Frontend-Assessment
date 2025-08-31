@@ -1,10 +1,32 @@
 .Vehicle-Cards-Container {
   margin: 1rem 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
+/* Section title */
+.Vehicle-Cards-Title {
+  color: #124170;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Section description */
+.Vehicle-Cards-Description {
+  color: #26667F;
+  line-height: 1.5;
+  max-width: 800px;
+}
+
+/* Card styling */
 .Vehicle-Card {
   border-radius: 12px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .Vehicle-Card:hover {
@@ -14,34 +36,54 @@
 
 .Vehicle-Card-Content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.2rem;
+  background-color: #DDF4E7;
 }
 
 .Vehicle-Card-Icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f5f5;
+  background: #67C090;
+  color: #DDF4E7;
   border-radius: 50%;
   width: 48px;
   height: 48px;
+  flex-shrink: 0;
 }
 
 .Vehicle-Card-Info {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
 }
 
-/* Ensure four cards per row on larger screens */
+.Vehicle-Card-MainValue {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #124170;
+}
+
+.Vehicle-Card-Description {
+  font-size: 0.85rem;
+  color: #26667F;
+  margin-bottom: 0.2rem;
+}
+
+/* Responsive: four cards per row on large screens */
 @media (min-width: 1200px) {
   .Vehicle-Cards-Container .MuiGrid-item {
-    flex: 0 0 25%; /* 100% / 4 cards */
+    flex: 0 0 25%;
     max-width: 25%;
   }
 }
 
-/* Three cards per row on medium screens */
+/* three cards per row on medium screens */
 @media (min-width: 900px) and (max-width: 1199px) {
   .Vehicle-Cards-Container .MuiGrid-item {
     flex: 0 0 33.3333%;
@@ -49,7 +91,7 @@
   }
 }
 
-/* Two cards per row on small screens */
+/* two cards per row on small screens */
 @media (min-width: 600px) and (max-width: 899px) {
   .Vehicle-Cards-Container .MuiGrid-item {
     flex: 0 0 50%;
@@ -57,7 +99,7 @@
   }
 }
 
-/* Single card per row on very small screens */
+/* single card per row on very small screens */
 @media (max-width: 599px) {
   .Vehicle-Cards-Container .MuiGrid-item {
     flex: 0 0 100%;

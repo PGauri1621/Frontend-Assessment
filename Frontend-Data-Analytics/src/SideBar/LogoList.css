@@ -1,12 +1,14 @@
 .logo-list {
   width: 220px;
-  background-color: inherit; /* stays with your theme */
-  color: inherit;
+  background-color: #26667F;
+  color: #DDF4E7;
   height: 100%;
   display: flex;
   flex-direction: column;
   padding-top: 1rem;
   transition: width 0.3s ease;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 .logo-list.collapsed {
@@ -17,20 +19,32 @@
   padding: 12px 16px;
   border-radius: 6px;
   margin: 4px 8px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  color: #DDF4E7;
+}
+.logo-list-item:hover {
+  background-color: #67C090;
+  color: #124170;
+  transform: scale(1.02);
 }
 
-.logo-list-item:hover {
-  background-color: rgba(0, 0, 0, 0.05); /* subtle hover */
+.logo-list-text {
+  font-weight: 600;
 }
 
 .logo-list-icon {
-  color: inherit; /* matches your theme */
   min-width: 40px;
   display: flex;
   justify-content: center;
+  color: #DDF4E7;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.logo-list-item:hover .logo-list-icon {
+  color: #124170;
+  transform: scale(1.1);
 }
 
 .logo-list-divider {
   margin: 1rem 0;
+  border-color: #67C090;
 }

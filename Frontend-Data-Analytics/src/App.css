@@ -4,20 +4,10 @@
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  background-color: #DDF4E7; /* light app background */
+  background-color: #DDF4E7;
 }
 
-/* ===== Header ===== */
-header, .Header {
-  flex: 0 0 auto;
-  background-color: #26667F; /* primary header color */
-  color: #DDF4E7; /* light text */
-  padding: 1rem 2rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-/* ===== App Body (Sidebar + Main Content) ===== */
+/* ===== App Body ===== */
 .App-Body {
   display: flex;
   flex: 1;
@@ -28,19 +18,18 @@ header, .Header {
 
 /* ===== Sidebar ===== */
 .Sidebar {
-  flex: 0 0 180px;
-  background-color: #26667F; /* lighter than #124170 */
-  color: #DDF4E7; /* light text */
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-self: flex-start;
+  position: sticky;
+  top: 1rem;
+  height: 90vh; /* Increased height */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-
-/* ===== Main Content Area ===== */
+/* ===== Main Content ===== */
 .Main-Content {
   flex: 1;
   display: flex;
@@ -50,12 +39,10 @@ header, .Header {
 
 /* ===== Hero Section ===== */
 .Hero {
-  background: #67C090; /* accent green */
+  background: #67C090;
   padding: 2rem;
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  display: block; /* changed from flex to allow full-width card grid */
   font-weight: bold;
   color: #DDF4E7;
 }
@@ -72,7 +59,7 @@ header, .Header {
   flex: 1;
   min-width: 300px;
   height: 480px;
-  background-color: #DDF4E7; /* light card background */
+  background-color: #DDF4E7;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -81,3 +68,48 @@ header, .Header {
   justify-content: center;
   align-items: center;
 }
+
+/* ===== Hero VehicleOverviewCards container tweak ===== */
+.Hero .Vehicle-Cards-Container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.Hero .Vehicle-Cards-Container .MuiGrid-item {
+  display: flex; /* stretch cards evenly */
+}
+
+/* ===== Professional Section Separator ===== */
+.Section-Seperator {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 2rem 0; /* vertical spacing */
+  position: relative;
+}
+
+/* gradient lines */
+.Section-Seperator::before,
+.Section-Seperator::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, #124170, #26667F);
+  border-radius: 1px;
+  opacity: 0.6;
+}
+
+/* optional small circular accent in middle */
+.Section-Seperator::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #67C090;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+

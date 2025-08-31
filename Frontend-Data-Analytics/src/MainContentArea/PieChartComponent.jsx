@@ -5,26 +5,22 @@ import './PieChartComponent.css';
 
 const PieChartComponent = () => {
   const [chartData, setChartData] = useState([]);
-
-  const colors = ['skyblue', 'salmon', 'lightgreen', 'gold', 'lightcoral'];
+  const colors = ['#67C090','#26667F','#124170','#DDF4E7','#67C090'];
 
   useEffect(() => {
-    fetch("/data/Electric_Vehicle_Population_Data.csv") // adjust path
+    fetch("/data/Electric_Vehicle_Population_Data.csv")
       .then(res => res.text())
       .then(csvText => {
         const parsed = Papa.parse(csvText, { header: true });
         const data = parsed.data;
 
-        // Count values for CAFV Eligibility
         const counts = {};
         data.forEach(row => {
           const val = row["Clean Alternative Fuel Vehicle (CAFV) Eligibility"];
           if (val) counts[val] = (counts[val] || 0) + 1;
         });
 
-        // Convert to array for Recharts
         const chartArray = Object.entries(counts).map(([name, value]) => ({ name, value }));
-
         setChartData(chartArray);
       });
   }, []);
@@ -32,10 +28,14 @@ const PieChartComponent = () => {
   return (
     <div className="Website-PieChart-Component">
       <h3>CAFV Eligibility</h3>
+      <p className="Chart-Description">
+        This pie chart illustrates the proportion of vehicles eligible for the Clean Alternative Fuel Vehicle program.
+        It helps understand how many vehicles qualify for incentives and supports policy analysis.
+      </p>
       {chartData.length === 0 ? (
         <p>Loading pie chart data...</p>
       ) : (
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={350}>
           <PieChart>
             <Pie
               data={chartData}
@@ -43,7 +43,7 @@ const PieChartComponent = () => {
               nameKey="name"
               cx="50%"
               cy="50%"
-              outerRadius={120}
+              outerRadius={100}
               label
               startAngle={140}
             >

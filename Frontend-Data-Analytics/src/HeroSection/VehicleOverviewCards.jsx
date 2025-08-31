@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, Typography, Grid } from "@mui/material";
+import { Card, CardContent, Typography, Grid, Box } from "@mui/material";
 import ElectricCarIcon from "@mui/icons-material/ElectricCar";
 import BatteryChargingFullIcon from "@mui/icons-material/BatteryChargingFull";
 import Papa from "papaparse";
@@ -9,11 +9,31 @@ import "./VehicleOverviewCards.css";
 const VehicleOverviewCards = () => {
   const [cards, setCards] = useState([]);
   const trackedMakes = ["TESLA", "BMW"];
+
   const iconMap = {
     "Battery Electric Vehicle (BEV)": <ElectricCarIcon fontSize="large" color="primary" />,
     "Plug-in Hybrid Electric Vehicle (PHEV)": <BatteryChargingFullIcon fontSize="large" color="secondary" />,
     TESLA: <ElectricCarIcon fontSize="large" color="primary" />,
     BMW: <BatteryChargingFullIcon fontSize="large" color="secondary" />,
+  };
+
+  const descriptionMap = {
+    "Battery Electric Vehicle (BEV)": [
+      "Fully electric vehicles without combustion engines.",
+      "Largest share of EVs in the dataset."
+    ],
+    "Plug-in Hybrid Electric Vehicle (PHEV)": [
+      "Combine electric and conventional engines.",
+      "Smaller share than BEVs but steadily growing."
+    ],
+    TESLA: [
+      "Leading EV manufacturer with high adoption.",
+      "Metrics include average range and MSRP."
+    ],
+    BMW: [
+      "Premium EV options by BMW.",
+      "Includes average range and MSRP metrics."
+    ]
   };
 
   useEffect(() => {
@@ -23,7 +43,6 @@ const VehicleOverviewCards = () => {
         const parsed = Papa.parse(csvText, { header: true, dynamicTyping: true });
         const data = parsed.data;
 
-        // 1️⃣ Count EV types (BEV, PHEV)
         const evCounts = data.reduce((acc, row) => {
           const type = row["Electric Vehicle Type"];
           if (type) acc[type] = (acc[type] || 0) + 1;
@@ -33,11 +52,11 @@ const VehicleOverviewCards = () => {
 
         const evCards = Object.entries(evCounts).map(([type, count]) => ({
           title: type,
-          value: `${((count / totalEV) * 100).toFixed(2)}%`,
-          icon: iconMap[type] || null,
+          mainValue: `${((count / totalEV) * 100).toFixed(2)}%`,
+          icon: iconMap[type],
+          descriptionLines: descriptionMap[type] || [],
         }));
 
-        // 2️⃣ Compute Tesla and BMW averages
         const maxRange = Math.max(...data.map(row => parseFloat(row["Electric Range"]) || 0), 1);
         const maxMSRP = Math.max(...data.map(row => parseFloat(row["Base MSRP"]) || 0), 1);
 
@@ -49,30 +68,51 @@ const VehicleOverviewCards = () => {
 
           return {
             title: make,
-            value: `Avg Electric Range: ${((totalRange / count) / maxRange * 100).toFixed(1)}% | Avg Base MSRP: ${((totalMSRP / count) / maxMSRP * 100).toFixed(1)}%`,
+            mainValue: `Avg Range: ${((totalRange / count) / maxRange * 100).toFixed(1)}%`,
             icon: iconMap[make],
+            descriptionLines: descriptionMap[make] || [],
           };
         });
 
-        // Combine all cards: BEV, PHEV + Tesla/BMW stats
         setCards([...evCards, ...makeStats]);
       });
   }, []);
 
   return (
     <div className="Vehicle-Cards-Container">
+      {/* Section Title and Description */}
+      <Box mb={3}>
+        <Typography
+          variant="h5"
+          className="Vehicle-Cards-Title"
+          gutterBottom
+        >
+          Electric Vehicle Insights
+        </Typography>
+        <Typography
+          variant="body2"
+          className="Vehicle-Cards-Description"
+        >
+          Overview of EV types and major manufacturers. The main metric is highlighted in each card with additional insights below, providing a snapshot of adoption trends and performance metrics.
+        </Typography>
+      </Box>
+
       <Grid container spacing={3}>
         {cards.map((card, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid item xs={12} sm={6} md={3} key={index}>
             <Card className="Vehicle-Card" elevation={3}>
               <CardContent className="Vehicle-Card-Content">
-                <div className="Vehicle-Card-Icon">{card.icon}</div>
-                <div className="Vehicle-Card-Info">
-                  <Typography variant="h6">{card.title}</Typography>
-                  <Typography variant="subtitle1" color="textSecondary">
-                    {card.value}
+                <Box className="Vehicle-Card-Icon">{card.icon}</Box>
+                <Box className="Vehicle-Card-Info">
+                  <Typography variant="h5" className="Vehicle-Card-MainValue">
+                    {card.mainValue}
                   </Typography>
-                </div>
+                  {(card.descriptionLines || []).map((line, i) => (
+                    <Typography key={i} variant="body2" className="Vehicle-Card-Description">
+                      {line}
+                    </Typography>
+                  ))}
+                </Box>
               </CardContent>
             </Card>
           </Grid>
