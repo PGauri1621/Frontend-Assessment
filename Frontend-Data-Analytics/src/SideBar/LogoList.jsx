@@ -12,6 +12,7 @@ import {
   Map,
   TrendingUp,
   EvStation,
+  Home,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom"; // ⬅️ import router Link
 import "./LogoList.css";
@@ -21,10 +22,11 @@ const LogoList = () => {
 
   // Menu items now have a "path"
   const menuItems = [
+    { text: "Home", icon: <Home />, path: "/home" },
     { text: "Vehicle Analysis", icon: <ElectricCar />, path: "/vehicle-analysis" },
     { text: "Geographic Analysis", icon: <Map />, path: "/geographic-analysis" },
     { text: "Market Trends", icon: <TrendingUp />, path: "/trends" },
-    { text: "Infrastructure", icon: <EvStation />, path: "/infrastructure" },
+   
   ];
 
   return (
