@@ -11,7 +11,7 @@ import {
 import { Typography, Divider } from "@mui/material";
 import "./UsageByLocationCards.css";
 
-const UsageByLocationSummary = () => {
+const UsageByLocationCards = () => {
   const [summaryData, setSummaryData] = useState([]);
   const [urbanPct, setUrbanPct] = useState(0);
 
@@ -57,12 +57,14 @@ const UsageByLocationSummary = () => {
 
   return (
     <div className="UsageByLocation-Container">
-      <Typography variant="h5" align="center" className="title">
-        Electric Vehicle Distribution
-      </Typography>
-      <Typography variant="subtitle1" align="center" className="subtitle">
-        Usage by Location
-      </Typography>
+      <div className="title-row">
+        <Typography className="title">
+          Electric Vehicle Distribution
+        </Typography>
+        <Typography variant="subtitle1" className="subtitle">
+          (Usage by Location)
+        </Typography>
+      </div>
       <Divider className="divider" />
 
       {summaryData.length === 0 ? (
@@ -99,4 +101,4 @@ const UsageByLocationSummary = () => {
   );
 };
 
-export default UsageByLocationSummary;
+export default UsageByLocationCards;

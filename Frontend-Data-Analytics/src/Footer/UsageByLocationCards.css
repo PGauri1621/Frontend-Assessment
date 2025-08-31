@@ -12,36 +12,47 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-.UsageByLocation-Container .title {
+/* Title row: both main title and subtitle inline, professional spacing */
+.title-row {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.title {
   color: #124170;
   font-weight: 700;
+  font-size: 1.5rem; /* matches bar/pie chart titles */
 }
 
-.UsageByLocation-Container .subtitle {
-  color: #14b8a6;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
+.subtitle {
+  color: #26667F;
+  font-size: 1rem; /* similar to chart description */
+  font-weight: 500;
 }
 
-.UsageByLocation-Container .divider {
+.divider {
   margin-bottom: 1.5rem;
   background-color: #e5e7eb;
   height: 2px;
   border-radius: 2px;
 }
 
-.UsageByLocation-Container .info-text {
+.info-text {
   font-size: 0.9rem;
   color: #2563eb;
   margin-top: 1rem;
 }
 
-.UsageByLocation-Container .urban {
+.urban {
   color: #7c3aed;
   font-weight: 600;
 }
 
-.UsageByLocation-Container .rural {
+.rural {
   color: #10b981;
   font-weight: 600;
 }

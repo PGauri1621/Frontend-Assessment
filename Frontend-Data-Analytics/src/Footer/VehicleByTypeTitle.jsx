@@ -64,27 +64,20 @@ const VehicleByTypeTitle = () => {
   };
 
   return (
-    <div className="vehicle-card">
-      <Typography variant="h5" align="center" className="title">
-        Top EV Makes in Urban vs Rural Areas
-      </Typography>
-      <Typography variant="subtitle1" align="center" className="subtitle">
-        Comparison of most popular EV brands across locations
-      </Typography>
-      <Divider className="divider" />
-
-      <div className="vehicle-card-header">
-        <Typography variant="h6" className="vehicle-card-title">
-          Vehicles by Type & Location
+    <div className="UsageByLocation-Container">
+      <div className="title-row">
+        <Typography className="title">
+          Top EV Makes in Urban vs Rural Areas
         </Typography>
-        <Tooltip title="Shows number of cars in Urban vs Rural areas">
-          <InfoIcon className="info-icon" />
-        </Tooltip>
+        <Typography className="subtitle">
+          (Vehicles by Type & Location)
+        </Typography>
       </div>
+      <Divider className="divider" />
 
       <div className="road-container">
         {vehicleData.length === 0 ? (
-          <Typography>Loading data...</Typography>
+          <Typography align="center">Loading data...</Typography>
         ) : (
           vehicleData.map((v, idx) => (
             <div key={idx} className="vehicle-lane">

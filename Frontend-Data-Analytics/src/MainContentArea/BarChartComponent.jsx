@@ -11,33 +11,52 @@ import {
   Legend,
   Cell
 } from "recharts";
-import './BarChartComponent.css';
+import "./BarChartComponent.css";
 
 const BarChartComponent = () => {
   const [chartData, setChartData] = useState([]);
-  const colors = ['#67C090','#124170','#26667F','#DDF4E7','#124170'];
+
+  // Theme colors (unique for each bar)
+  const colors = [
+    "#124170", "#26667F", "#67C090", "#DDF4E7", "#E6A157",
+    "#FFB347", "#FF7F50", "#8E44AD", "#1ABC9C", "#F39C12"
+  ];
 
   useEffect(() => {
     fetch("/data/Electric_Vehicle_Population_Data.csv")
-      .then(res => res.text())
-      .then(csvText => {
+      .then((res) => res.text())
+      .then((csvText) => {
         const parsed = Papa.parse(csvText, { header: true });
         const data = parsed.data;
 
         const makeCounts = {};
-        data.forEach(row => {
-          const make = row["Make"];
-          if (make) makeCounts[make] = (makeCounts[make] || 0) + 1;
+        data.forEach((row) => {
+          let make = row["Make"];
+          if (make) {
+            // Format: first letter uppercase, rest lowercase
+            make = make.charAt(0).toUpperCase() + make.slice(1).toLowerCase();
+            makeCounts[make] = (makeCounts[make] || 0) + 1;
+          }
         });
 
         const sortedMakes = Object.entries(makeCounts)
           .map(([make, count]) => ({ Make: make, Count: count }))
-          .sort((a,b) => b.Count - a.Count)
+          .sort((a, b) => b.Count - a.Count)
           .slice(0, 5);
 
         setChartData(sortedMakes);
       });
   }, []);
+
+  // Custom legend for top-right "Count"
+  const renderCustomLegend = () => (
+    <g transform="translate(300,0)">
+      <rect x={0} y={0} width={12} height={12} fill="#000000" />
+      <text x={16} y={12} fill="#124170" fontSize={12} fontWeight="600">
+        Count
+      </text>
+    </g>
+  );
 
   return (
     <div className="Website-BarChart-Component">
@@ -51,15 +70,37 @@ const BarChartComponent = () => {
         <p>Loading chart data...</p>
       ) : (
         <ResponsiveContainer width="100%" height={350}>
-          <BarChart data={chartData} margin={{ top: 20, right: 20, left: 10, bottom: 50 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#124170"/>
-            <XAxis dataKey="Make" angle={-30} textAnchor="end" height={50} stroke="#124170"/>
-            <YAxis stroke="#124170"/>
+          <BarChart
+            data={chartData}
+            margin={{ top: 40, right: 80, left: 40, bottom: 50 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="#124170" />
+            <XAxis
+              dataKey="Make"
+              angle={-30}
+              textAnchor="end"
+              height={50}
+              stroke="#124170"
+            />
+            <YAxis
+              stroke="#124170"
+              label={{
+                value: "Vehicle Count",
+                angle: -90,
+                position: "insideLeft",
+                offset: -10,
+                fill: "#124170",
+                fontSize: 12,
+                fontWeight: "600"
+              }}
+            />
             <Tooltip />
-            <Legend />
             <Bar dataKey="Count">
               {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={colors[index % colors.length]}
+                />
               ))}
             </Bar>
           </BarChart>
