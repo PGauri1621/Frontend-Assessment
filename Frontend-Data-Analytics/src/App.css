@@ -1,0 +1,125 @@
+/* ===== App Layout ===== */
+.App-Layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #DDF4E7;
+  font-family: 'Inter', sans-serif;
+  color: #124170;
+}
+
+/* ===== App Body ===== */
+.App-Body {
+  display: flex;
+  flex: 1;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  background-color: #DDF4E7;
+}
+
+/* ===== Sidebar ===== */
+.Sidebar {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  position: sticky;
+  top: 1rem;
+  height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #26667F;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: inset -1px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Main Content ===== */
+.Main-Content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ===== Hero Section ===== */
+.Hero {
+  background: #67C090;
+  padding: 2rem;
+  border-radius: 12px;
+  display: block;
+  font-weight: bold;
+  color: #DDF4E7;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Charts Row ===== */
+.Charts-Row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ===== Chart Wrapper ===== */
+.Chart-Wrapper {
+  flex: 1;
+  min-width: 320px;
+  height: 480px;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.Chart-Wrapper:hover {
+  transform: translateY(-4px);
+}
+
+/* ===== Hero VehicleOverviewCards container tweak ===== */
+.Hero .Vehicle-Cards-Container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.Hero .Vehicle-Cards-Container .MuiGrid-item {
+  display: flex;
+}
+
+/* ===== Professional Section Separator ===== */
+.Section-Seperator {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 2.5rem 0;
+  position: relative;
+}
+
+.Section-Seperator::before,
+.Section-Seperator::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, #124170, #26667F);
+  border-radius: 1px;
+  opacity: 0.7;
+}
+
+.Section-Seperator::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background-color: #67C090;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+}

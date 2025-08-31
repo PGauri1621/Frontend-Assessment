@@ -1,0 +1,130 @@
+/* ===== Home Page Layout ===== */
+.Home-Page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ===== Intro Section ===== */
+.Intro-Section {
+  background: linear-gradient(90deg, #124170, #26667F);
+  color: #DDF4E7;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.Intro-Title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #ffffff, #67C090, #ffffff);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+}
+
+@keyframes shine {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.Intro-Subtitle {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+  opacity: 0.95;
+  color: #DDF4E7;
+}
+
+/* ===== Hero Section ===== */
+.Hero {
+  background: #67C090;
+  padding: 2rem;
+  border-radius: 12px;
+  display: block;
+  font-weight: bold;
+  color: #DDF4E7;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+/* ===== Vehicle Cards Container inside Hero ===== */
+.Hero .Vehicle-Cards-Container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.Hero .Vehicle-Cards-Container .MuiGrid-item {
+  display: flex;
+}
+
+/* ===== Charts Row ===== */
+.Charts-Row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ===== Chart Wrapper ===== */
+.Chart-Wrapper {
+  flex: 1;
+  min-width: 320px;
+  height: 480px;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.Chart-Wrapper:hover {
+  transform: translateY(-4px);
+}
+
+/* Clean chart (removes double borders) */
+.clean-chart {
+  border: none;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  background-color: #ffffff;
+}
+
+/* ===== Section Separator ===== */
+.Section-Seperator {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.Section-Seperator::before,
+.Section-Seperator::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, #124170, #26667F);
+  border-radius: 1px;
+  opacity: 0.6;
+}
+
+.Section-Seperator::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #67C090;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px rgba(0,0,0,0.15);
+}

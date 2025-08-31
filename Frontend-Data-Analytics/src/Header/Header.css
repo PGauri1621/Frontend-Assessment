@@ -1,0 +1,94 @@
+/* Header AppBar */
+.Header-AppBar {
+  background: linear-gradient(90deg, #26667F, #124170);
+  color: #DDF4E7;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+}
+
+/* Toolbar Layout */
+.Header-Toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 98%;
+  padding: 0 1rem;
+}
+
+/* ===== Left Section ===== */
+.Header-Left {
+  display: flex;
+  align-items: center;
+}
+
+.Header-LogoIcon {
+  font-size: 2.6rem;
+  margin-right: 0.8rem;
+  color: #DDF4E7;
+  transition: transform 0.3s ease;
+}
+.Header-LogoIcon:hover {
+  transform: rotate(-10deg) scale(1.1);
+}
+
+.Header-TitleBlock {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.Header-Title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #DDF4E7;
+  text-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+.Header-Title:hover {
+  color: #67C090;
+  text-shadow: 0px 0px 12px rgba(103,192,144,0.9);
+}
+
+.Header-Tagline {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #DDF4E7;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Center Metrics ===== */
+.Header-Center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.Header-Metric {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #67C090;
+}
+
+.Header-Metric-Seperator {
+  color: #DDF4E7;
+}
+
+/* ===== Right Section ===== */
+.Header-Right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.Header-ActionIcon {
+  font-size: 1.8rem;
+  color: #DDF4E7;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.Header-ActionIcon:hover {
+  color: #67C090;
+  transform: scale(1.2);
+}
