@@ -9,6 +9,23 @@ import "./Home.css";
 const Home = () => {
   return (
     <div className="Home-Page">
+      {/* Intro Section */}
+      <div className="Intro-Section">
+        <h1 className="Intro-Title">
+          ⚡ EV Data Insights Dashboard
+        </h1>
+        <p className="Intro-Subtitle">
+          Welcome to your centralized platform for analyzing Electric Vehicle (EV) 
+          and Plug-in Hybrid (PHEV) data. Gain valuable insights into adoption trends, 
+          usage patterns, and distribution by type and location. This dashboard helps 
+          you track growth, compare categories, and make informed data-driven decisions 
+          about the evolving EV landscape.
+        </p>
+      </div>
+
+      {/* Separator */}
+      <div className="Section-Seperator" />
+
       {/* Hero Section */}
       <div className="Hero">
         <VehicleOverviewCards />
@@ -18,19 +35,19 @@ const Home = () => {
       <div className="Section-Seperator" />
 
       {/* Charts Row */}
-      <section className="Charts-Row">
+      <div className="Charts-Row">
         <div className="Chart-Wrapper clean-chart"><BarChartComponent /></div>
         <div className="Chart-Wrapper clean-chart"><PieChartComponent /></div>
-      </section>
+      </div>
 
       {/* Professional Separator */}
       <div className="Section-Seperator" />
 
       {/* Charts Row 2 */}
-      <section className="Charts-Row">
+      <div className="Charts-Row">
         <div className="Chart-Wrapper clean-chart"><UsageByLocationCards /></div>
         <div className="Chart-Wrapper clean-chart"><VehicleByTypeTitle /></div>
-      </section>
+      </div>
     </div>
   );
 };

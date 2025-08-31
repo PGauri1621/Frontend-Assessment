@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend
 } from "recharts";
+import { Typography, Divider } from "@mui/material";
 import "./UsageByLocationCards.css";
 
 const UsageByLocationSummary = () => {
@@ -56,13 +57,16 @@ const UsageByLocationSummary = () => {
 
   return (
     <div className="UsageByLocation-Container">
-      {/* Headings */}
-      <h2>Electric Vehicle Distribution</h2>
-      <h3>Usage by Location</h3>
+      <Typography variant="h5" align="center" className="title">
+        Electric Vehicle Distribution
+      </Typography>
+      <Typography variant="subtitle1" align="center" className="subtitle">
+        Usage by Location
+      </Typography>
+      <Divider className="divider" />
 
-      {/* Pie Chart */}
       {summaryData.length === 0 ? (
-        <p>Loading data...</p>
+        <Typography align="center">Loading data...</Typography>
       ) : (
         <ResponsiveContainer width="100%" height={250}>
           <PieChart>
@@ -86,12 +90,11 @@ const UsageByLocationSummary = () => {
         </ResponsiveContainer>
       )}
 
-      {/* Info below chart */}
-      <p>
+      <Typography align="center" className="info-text">
         <span className="urban">{urbanPct}%</span> of registered EVs are located in{" "}
         <span className="urban">Urban</span> areas, while the rest are in{" "}
         <span className="rural">Rural</span> areas.
-      </p>
+      </Typography>
     </div>
   );
 };

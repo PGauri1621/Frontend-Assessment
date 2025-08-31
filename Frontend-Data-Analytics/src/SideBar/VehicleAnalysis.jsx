@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
+import { Typography, MenuItem, FormControl, Select } from "@mui/material";
 import Papa from "papaparse";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip,
@@ -12,8 +12,11 @@ import "./VehicleAnalysis.css";
 const colors = ["#DDF4E7", "#67C090", "#26667F", "#124170"];
 const pieColors = ["#67C090", "#26667F"];
 
+const topMakes = ["TESLA", "BMW", "NISSAN", "PORSCHE", "AUDI", "FORD"];
+
 const VehicleAnalysis = () => {
   const [data, setData] = useState([]);
+  const [selectedMake, setSelectedMake] = useState("ALL");
 
   useEffect(() => {
     Papa.parse("/data/Electric_Vehicle_Population_Data.csv", {
@@ -24,13 +27,22 @@ const VehicleAnalysis = () => {
     });
   }, []);
 
+  const currentYear = new Date().getFullYear();
+  const filteredData = data.filter(item => {
+    const year = parseInt(item["Model Year"]);
+    if (!year) return false;
+    const inLast10Years = year >= currentYear - 10;
+    const matchMake = selectedMake === "ALL" || item.Make === selectedMake;
+    return inLast10Years && matchMake;
+  });
+
   // Prepare chart data
   const makeCounts = {};
   const yearCounts = {};
   const typeCounts = {};
   const rangeMsrpData = [];
 
-  data.forEach((item) => {
+  filteredData.forEach((item) => {
     // By Make
     if (item.Make) makeCounts[item.Make] = (makeCounts[item.Make] || 0) + 1;
 
@@ -55,14 +67,39 @@ const VehicleAnalysis = () => {
 
   return (
     <div className="vehicle-analysis-container">
-      <Typography variant="h4" gutterBottom sx={{ color: colors[3], fontWeight: 700 }}>
-        Vehicle Analysis
+      {/* Title & Description */}
+      <Typography
+        variant="h4"
+        gutterBottom
+        sx={{ color: colors[3], fontWeight: 700, mb: 1, animation: "pulse 2s infinite" }}
+      >
+        EV Vehicle Insights — Last 10 Years
       </Typography>
 
-      <Typography variant="body1" gutterBottom sx={{ color: colors[2], marginBottom: "1.5rem" }}>
-        Explore insights about electric vehicles — distribution by make, model year, type, and performance.
+      <Typography
+        variant="body1"
+        gutterBottom
+        sx={{ color: colors[2], marginBottom: "1.5rem" }}
+      >
+        Explore trends over the past decade: top EV makes, model years, vehicle types, and performance metrics like range vs base MSRP.
+        Use the filter below to focus on a specific manufacturer.
       </Typography>
 
+      {/* Dropdown Filter */}
+      <FormControl sx={{ minWidth: 180, mb: 2 }}>
+        <Select
+          value={selectedMake}
+          onChange={(e) => setSelectedMake(e.target.value)}
+          displayEmpty
+        >
+          <MenuItem value="ALL">All Top Makes</MenuItem>
+          {topMakes.map(make => (
+            <MenuItem key={make} value={make}>{make}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      {/* Grid of Charts */}
       <div className="vehicle-analysis-grid">
         {/* By Make */}
         <div className="vehicle-analysis-card">
@@ -136,7 +173,7 @@ const VehicleAnalysis = () => {
             </ScatterChart>
           </ResponsiveContainer>
           <Typography variant="body2" sx={{ color: colors[2], marginTop: 1 }}>
-            Scatter plot of electric range vs base MSRP for all vehicles.
+            Scatter plot of electric range vs base MSRP for filtered vehicles.
           </Typography>
         </div>
       </div>

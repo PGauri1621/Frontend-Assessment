@@ -5,14 +5,16 @@
   width: 100%;
   min-height: 100vh;
   background-color: #DDF4E7;
+  font-family: 'Inter', sans-serif;
+  color: #124170;
 }
 
 /* ===== App Body ===== */
 .App-Body {
   display: flex;
   flex: 1;
-  gap: 1rem;
-  padding: 1rem 2rem;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
   background-color: #DDF4E7;
 }
 
@@ -24,9 +26,14 @@
   align-self: flex-start;
   position: sticky;
   top: 1rem;
-  height: 90vh; /* Increased height */
+  height: 90vh;
   overflow-y: auto;
   overflow-x: hidden;
+  background: #26667F;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: inset -1px 0 6px rgba(0, 0, 0, 0.1);
 }
 
 /* ===== Main Content ===== */
@@ -34,39 +41,45 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 /* ===== Hero Section ===== */
 .Hero {
   background: #67C090;
   padding: 2rem;
-  border-radius: 8px;
-  display: block; /* changed from flex to allow full-width card grid */
+  border-radius: 12px;
+  display: block;
   font-weight: bold;
   color: #DDF4E7;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 /* ===== Charts Row ===== */
 .Charts-Row {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
 }
 
 /* ===== Chart Wrapper ===== */
 .Chart-Wrapper {
   flex: 1;
-  min-width: 300px;
+  min-width: 320px;
   height: 480px;
-  background-color: #DDF4E7;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.Chart-Wrapper:hover {
+  transform: translateY(-4px);
 }
 
 /* ===== Hero VehicleOverviewCards container tweak ===== */
@@ -77,7 +90,7 @@
 }
 
 .Hero .Vehicle-Cards-Container .MuiGrid-item {
-  display: flex; /* stretch cards evenly */
+  display: flex;
 }
 
 /* ===== Professional Section Separator ===== */
@@ -85,11 +98,10 @@
   display: flex;
   align-items: center;
   width: 100%;
-  margin: 2rem 0; /* vertical spacing */
+  margin: 2.5rem 0;
   position: relative;
 }
 
-/* gradient lines */
 .Section-Seperator::before,
 .Section-Seperator::after {
   content: "";
@@ -97,19 +109,17 @@
   height: 2px;
   background: linear-gradient(to right, #124170, #26667F);
   border-radius: 1px;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-/* optional small circular accent in middle */
 .Section-Seperator::after {
   content: "";
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background-color: #67C090;
   border-radius: 50%;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
 }
-

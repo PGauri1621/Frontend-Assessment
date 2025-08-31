@@ -1,4 +1,3 @@
-// GeographicAnalysis.jsx
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
@@ -6,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import Papa from "papaparse";
 import ReactDOMServer from "react-dom/server";
 import { SiToyota, SiFord, SiBmw, SiHonda, SiTesla } from "react-icons/si";
+import "./GeographicalAnalysis.css";
 
 // Convert React icon to Leaflet divIcon
 const getCarLogoIcon = (brandRaw) => {
@@ -32,8 +32,11 @@ const getCarLogoIcon = (brandRaw) => {
   });
 };
 
-const GeographicAnalysis = () => {
+const GeographicalAnalysis = () => {
   const [locations, setLocations] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("Seattle");
+
+  const cities = ["Seattle", "Bellevue", "Tacoma", "Spokane", "Olympia"];
 
   useEffect(() => {
     Papa.parse("/data/Electric_Vehicle_Population_Data.csv", {
@@ -54,8 +57,6 @@ const GeographicAnalysis = () => {
             const year = row["Model Year"].trim();
             const loc = row["Vehicle Location"].trim();
 
-            if (city.toLowerCase() !== "seattle") return null;
-
             const match = loc.match(
               /POINT\s*\(\s*(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)\s*\)/
             );
@@ -68,43 +69,60 @@ const GeographicAnalysis = () => {
             }
             return null;
           })
-          .filter(Boolean)
-          .slice(0, 100);
+          .filter(Boolean);
 
-        console.log("Parsed locations:", parsed);
         setLocations(parsed);
       },
     });
   }, []);
 
+  const filteredLocations = locations
+    .filter((loc) => loc.city.toLowerCase() === selectedCity.toLowerCase())
+    .slice(0, 100);
+
+  // Define default centers for cities
+  const cityCenters = {
+    Seattle: [47.6062, -122.3321],
+    Bellevue: [47.6101, -122.2015],
+    Tacoma: [47.2529, -122.4443],
+    Spokane: [47.6588, -117.4260],
+    Olympia: [47.0379, -122.9007],
+  };
+
   return (
-    <div style={{ width: "100%" }}>
-      {/* Title without background */}
-      <div
-        style={{
-          padding: "10px 0",
-          fontSize: "20px",
-          fontWeight: "bold",
-          color: "#124170",
-          textAlign: "center",
-        }}
-      >
-        Geographic Distribution of the First 100 Vehicles in Seattle
+    <div className="geographic-analysis-container">
+      {/* Title */}
+      <div className="geo-title">Geographic Distribution of Vehiclesin top 5 cities of WA</div>
+
+      {/* Dropdown */}
+      <div className="city-selector">
+        <label htmlFor="city-dropdown">Select City:</label>
+        <select
+          id="city-dropdown"
+          value={selectedCity}
+          onChange={(e) => setSelectedCity(e.target.value)}
+        >
+          {cities.map((city, idx) => (
+            <option key={idx} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Map */}
-      <div style={{ height: "500px", width: "100%" }}>
+      <div className="map-wrapper">
         <MapContainer
-          center={[47.6062, -122.3321]}
+          center={cityCenters[selectedCity]}
           zoom={11}
-          style={{ height: "100%", width: "100%" }}
+          style={{ height: "500px", width: "100%" }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution="© OpenStreetMap contributors"
           />
 
-          {locations.map((loc, idx) => (
+          {filteredLocations.map((loc, idx) => (
             <Marker
               key={idx}
               position={[loc.lat, loc.lng]}
@@ -122,4 +140,4 @@ const GeographicAnalysis = () => {
   );
 };
 
-export default GeographicAnalysis;
+export default GeographicalAnalysis;
