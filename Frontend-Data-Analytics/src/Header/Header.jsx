@@ -56,7 +56,7 @@ const Header = () => {
             <EvStationIcon className="Header-LogoIcon" />
           </IconButton>
           <div className="Header-TitleBlock">
-            <span className="Header-Title">EV Analytics Dashboard</span>
+            <span className="Header-Title">EV Analytics</span>
             <span className="Header-Tagline">Insights into the future of mobility</span>
           </div>
         </div>

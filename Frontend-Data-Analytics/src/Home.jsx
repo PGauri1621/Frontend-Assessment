@@ -25,6 +25,7 @@ const Home = () => {
 
       {/* Separator */}
       <div className="Section-Seperator" />
+      
 
       {/* Hero Section */}
       <div className="Hero">

@@ -1,50 +1,62 @@
+/* Container */
 .logo-list {
   width: 220px;
-  background-color: #26667F;
-  color: #DDF4E7;
+  background-color: #26667F; /* teal background */
+  color: #DDF4E7; /* light mint text */
   height: 100%;
   display: flex;
   flex-direction: column;
   padding-top: 1rem;
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, background-color 0.3s ease;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
+/* Collapsed (icon-only mode) */
 .logo-list.collapsed {
   width: 70px;
+  background-color: #124170; /* darker navy to make icons pop */
 }
 
+/* List item */
 .logo-list-item {
   padding: 12px 16px;
   border-radius: 6px;
   margin: 4px 8px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  color: #DDF4E7;
+  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  color: #DDF4E7; /* default text color */
 }
+
+/* Hover effect */
 .logo-list-item:hover {
-  background-color: #67C090;
-  color: #124170;
+  background-color: #67C090; /* soft green */
+  color: #124170; /* dark navy text for strong contrast */
   transform: scale(1.02);
 }
 
+/* List text */
 .logo-list-text {
   font-weight: 600;
+  color: inherit; /* inherits parent text color */
 }
 
+/* Icon styling */
 .logo-list-icon {
   min-width: 40px;
   display: flex;
   justify-content: center;
-  color: #DDF4E7;
+  color: #DDF4E7; /* light mint icons */
   transition: color 0.2s ease, transform 0.2s ease;
 }
+
+/* Icon hover */
 .logo-list-item:hover .logo-list-icon {
-  color: #124170;
+  color: #124170; /* navy icons on hover */
   transform: scale(1.1);
 }
 
+/* Divider */
 .logo-list-divider {
   margin: 1rem 0;
-  border-color: #67C090;
+  border-color: #67C090; /* green accent divider */
 }

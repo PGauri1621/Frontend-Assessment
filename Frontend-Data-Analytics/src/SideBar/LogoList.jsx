@@ -42,7 +42,12 @@ const LogoList = () => {
               className="logo-list-item"
             >
               <ListItemIcon className="logo-list-icon">{item.icon}</ListItemIcon>
-              {open && <ListItemText primary={item.text} className="logo-list-text" />}
+              {open && (
+                <ListItemText
+                  primary={item.text}
+                  className="logo-list-text"
+                />
+              )}
             </ListItem>
           </Tooltip>
         ))}
