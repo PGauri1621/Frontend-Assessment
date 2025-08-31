@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -13,14 +13,44 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
+import Papa from "papaparse";
 import "./Header.css";
 
 const Header = () => {
+  const [metrics, setMetrics] = useState({
+    totalEVs: 0,
+    stationsPerCity: 0,
+    vehiclesAnalyzed: 0
+  });
+
+  useEffect(() => {
+    fetch("/data/Electric_Vehicle_Population_Data.csv")
+      .then(res => res.text())
+      .then(csvText => {
+        const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+        const data = parsed.data;
+
+        if (!data || data.length === 0) return;
+
+        // Count rows for each column
+        const totalEVs = data.filter(row => row["Electric Vehicle Type"]).length;
+        const totalStations = data.filter(row => row["Electric Utility"]).length;
+        const totalVehicles = data.filter(row => row["Make"]).length;
+
+        setMetrics({
+          totalEVs,
+          stationsPerCity: totalStations,
+          vehiclesAnalyzed: totalVehicles
+        });
+      })
+      .catch(err => console.error("CSV parsing error:", err));
+  }, []);
+
   return (
     <AppBar position="static" className="Header-AppBar">
       <Toolbar className="Header-Toolbar">
 
-        {/* Left Section: Logo + Title */}
+        {/* Left Section */}
         <div className="Header-Left">
           <IconButton color="inherit" className="Header-Logo" aria-label="Home">
             <EvStationIcon className="Header-LogoIcon" />
@@ -31,24 +61,23 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Center Section: Metrics */}
+        {/* Center Metrics */}
         <div className="Header-Center">
           <Tooltip title="Total Electric Vehicles in dataset">
-            <span className="Header-Metric">EVs: 12,345</span>
+            <span className="Header-Metric">EVs: {metrics.totalEVs.toLocaleString()}</span>
           </Tooltip>
           <span className="Header-Metric-Seperator">|</span>
           <Tooltip title="Average charging stations per city">
-            <span className="Header-Metric">Stations/City: 152</span>
+            <span className="Header-Metric">Stations/City: {metrics.stationsPerCity.toLocaleString()}</span>
           </Tooltip>
           <span className="Header-Metric-Seperator">|</span>
           <Tooltip title="Vehicles analyzed in last week">
-            <span className="Header-Metric">Vehicles Analyzed: 3,210</span>
+            <span className="Header-Metric">Vehicles Analyzed: {metrics.vehiclesAnalyzed.toLocaleString()}</span>
           </Tooltip>
         </div>
 
-        {/* Right Section: Actions */}
+        {/* Right Section */}
         <div className="Header-Right">
-
           <Tooltip title="Notifications">
             <IconButton color="inherit" aria-label="Notifications">
               <Badge badgeContent={3} color="error">
@@ -86,8 +115,8 @@ const Header = () => {
               <AccountCircleIcon className="Header-ActionIcon" />
             </IconButton>
           </Tooltip>
-
         </div>
+
       </Toolbar>
     </AppBar>
   );
